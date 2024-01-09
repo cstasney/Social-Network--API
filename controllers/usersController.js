@@ -13,21 +13,20 @@ module.exports = {
 
     async getOneUser(req, res) {
         try {
-            const user = await Users.findOne({ _id: req.paramas.userId })
+            const user = await Users.findOne({ _id: req.params.userId })
                 .populate([
                     { path: 'thoughts', select: "-__v" },
                     { path: 'friends', select: "-__v" }
                 ])
                 .select('-__v');
 
-            res.json(user)
-
             if (!user) {
-                res.status(400).json({ message: 'No user found with that ID' })
-                return;
+                return res.status(400).json({ message: 'No user found with that ID' })
             }
-
+            
+            res.json(user)
         } catch (err) {
+            console.log(err)
             res.status(500).json(err)
         }
     },
@@ -137,5 +136,3 @@ module.exports = {
         }
     }
 }
-
-module.exports = userController;

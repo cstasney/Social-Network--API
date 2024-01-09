@@ -8,7 +8,7 @@ const thoughtsSchema = new Schema(
             required: true,
             minlength: 1,
             maxlength: 280,
-            timestamps: true,
+
         },
         createdAt: {
             type: Date,
@@ -19,6 +19,9 @@ const thoughtsSchema = new Schema(
             required: true
         },
         reactions: [reactionsSchema]
+    },
+    {
+        timestamps: true,
     },
     {
         toJSON: {
