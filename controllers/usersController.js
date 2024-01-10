@@ -7,7 +7,7 @@ module.exports = {
             res.json(users)
         }
         catch (err) {
-            res.status(500).json(err)
+            res.status(500).json(err) 
         }
     },
 
@@ -18,7 +18,7 @@ module.exports = {
                     { path: 'thoughts', select: "-__v" },
                     { path: 'friends', select: "-__v" }
                 ])
-                .select('-__v');
+                // .select('-__v');
 
             if (!user) {
                 return res.status(400).json({ message: 'No user found with that ID' })
@@ -51,7 +51,7 @@ module.exports = {
             const friends = user.friends;
             await Users.updateMany(
                 { _id: { $in: friends } },
-                { $pull: { friends: params.id } }
+                { $pull: { friends: req.params.userId } }
             )
 
             await Thoughts.deleteMany({ _id: { $in: user.thoughts } });
