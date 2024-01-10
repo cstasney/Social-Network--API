@@ -36,7 +36,7 @@ module.exports = {
         try {
             const thought = await Thoughts.create(req.body)
             const user = await Users.findOneAndUpdate({ _id: req.params.userId },
-                { $push: { thoughts: _id } },
+                { $addToSet: { thoughts: _id } },
                 { new: true });
 
             if (!user) {
@@ -83,7 +83,7 @@ module.exports = {
     async addReaction(req, res) {
         try {
             const reaction = await Thoughts.findOneAndUpdate({ _id: req.params.thoughtId },
-                { $push: { reactions: body } },
+                { $addToSet: { reactions: body } },
                 { new: true, runValidators: true }
             )
                 .populate({ path: 'reactions', select: '-__v' })
