@@ -21,13 +21,11 @@ const reactionsSchema = new Schema(
         }
     },
     {
-        timestamps: true
-    },
-    {
+        timestamps: true,
         toJSON: {
             getters: true
         }
     }
-)
+);
 
-module.exports = reactionsSchema
+module.exports = reactionsSchema;
