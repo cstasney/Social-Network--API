@@ -5,7 +5,9 @@ module.exports = {
         try {
             const users = await Users.find()
             res.json(users)
+
         }
+        
         catch (err) {
             res.status(500).json(err) 
         }
@@ -15,10 +17,9 @@ module.exports = {
         try {
             const user = await Users.findOne({ _id: req.params.userId })
                 .populate([
-                    { path: 'thoughts', select: "-__v" },
-                    { path: 'friends', select: "-__v" }
+                    { path: 'thoughts' },
+                    { path: 'friends' }
                 ])
-                // .select('-__v');
 
             if (!user) {
                 return res.status(400).json({ message: 'No user found with that ID' })
